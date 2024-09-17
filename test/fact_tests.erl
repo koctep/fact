@@ -3,6 +3,8 @@
 -include_lib("eunit/include/eunit.hrl").
 
 calc_test() ->
+  _ = fact:start(),
+  timer:sleep(10),
   [?assertEqual(1, fact:calc(0)),
    ?assertEqual(1, fact:calc(1)),
    ?assertEqual(2, fact:calc(2)),
