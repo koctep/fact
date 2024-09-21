@@ -2,7 +2,14 @@ PROJECT = fact
 PROJECT_DESCRIPTION = Calculate factorial
 ERLANG_MK = erlang.mk
 
-A = $(shell echo $(wildcard $(ELANG_MK)))
+EUNIT_OPTS = verbose
+
+NODE ?= node
+IP ?= $(shell ip route get 8.8.8.8 | head -n1 | awk '{print $$7}')
+NODENAME = $(NODE)@$(IP)
+
+SHELL_OPTS = -config etc/fact.config -name $(NODENAME) -s fact
+
 ifeq ($(shell ls $(ERLANG_MK)),)
 %:
 	curl https://erlang.mk/erlang.mk -o $(ERLANG_MK) $(CURL_OPTS)
